@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground, useWindowDimensions, Platform, KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, useWindowDimensions, Platform, KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 import { useTheme } from '../styles/theme';
@@ -30,6 +30,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, subtitle, title, desc
                 style={[styles.themeToggle, { backgroundColor: colors.card }]}
                 onPress={() => dispatch(toggleTheme())}
             >
+                {/* @ts-ignore: React 19 type mismatch workaround */}
                 <Ionicons
                     name={mode === 'light' ? 'moon' : 'sunny'}
                     size={24}
@@ -41,28 +42,31 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, subtitle, title, desc
 
                 {/* Left Side (Branding) */}
                 <View style={[styles.brandingSection, isWeb ? styles.brandingWeb : styles.brandingMobile, { backgroundColor: colors.brandBackground }]}>
-                    {/* <ImageBackground
+
+                    <ImageBackground
                         source={require('../../assets/login-bg.png')}
                         style={styles.backgroundImage}
                         resizeMode="cover"
-                    > */}
-                    <View style={[styles.brandingContent, { backgroundColor: colors.brandBackground + 'D9' }]}>
-                        {/* D9 is approx 85% opacity hex */}
-                        <View style={styles.companyHeader}>
-                            <Ionicons name="infinite" size={24} color="#fff" />
-                            <Text style={styles.companyName}>COMPANY NAME</Text>
-                        </View>
+                    >
+                        <View style={[styles.brandingContent, { backgroundColor: colors.brandBackground + 'D9' }]}>
+                            {/* D9 is approx 85% opacity hex */}
+                            <View style={styles.companyHeader}>
+                                {/* @ts-ignore: React 19 type mismatch workaround */}
+                                <Ionicons name="infinite" size={24} color="#fff" />
+                                <Text style={styles.companyName}>COMPANY NAME</Text>
+                            </View>
 
-                        <View style={styles.brandingTextContainer}>
-                            <Text style={styles.welcomeSubtext}>{subtitle}</Text>
-                            <Text style={styles.welcomeTitle}>{title}</Text>
-                            <View style={styles.underline} />
-                            <Text style={styles.loremText}>
-                                {description}
-                            </Text>
+                            <View style={styles.brandingTextContainer}>
+                                <Text style={styles.welcomeSubtext}>{subtitle}</Text>
+                                <Text style={styles.welcomeTitle}>{title}</Text>
+                                <View style={styles.underline} />
+                                <Text style={styles.loremText}>
+                                    {description}
+                                </Text>
+                            </View>
                         </View>
-                    </View>
-                    {/* </ImageBackground> */}
+                    </ImageBackground>
+
                 </View>
 
                 {/* Right Side (Form) */}
@@ -71,6 +75,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, subtitle, title, desc
                     style={[styles.formSection, isWeb ? styles.formWeb : styles.formMobile, { backgroundColor: colors.background }]}
                 >
                     <ScrollView contentContainerStyle={styles.formContent} showsVerticalScrollIndicator={false}>
+                        <Image source={require('../../assets/icon.png')} style={styles.appLogo} resizeMode="contain" />
                         {children}
 
                         {/* Language Selector Footer */}
@@ -136,7 +141,8 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+
     },
     brandingContent: {
         padding: 40,
@@ -157,6 +163,11 @@ const styles = StyleSheet.create({
     },
     brandingTextContainer: {
         marginBottom: 60,
+    },
+    appLogo: {
+        width: 80,
+        height: 80,
+        marginBottom: 20,
     },
     welcomeSubtext: {
         color: '#fff',

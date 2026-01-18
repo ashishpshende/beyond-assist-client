@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import Layout from '../../../components/Layout';
@@ -14,6 +14,12 @@ const UserProfileScreen = () => {
     return (
         <Layout title={t('userProfile')}>
             <View style={[styles.container, { backgroundColor: colors.background }]}>
+                <View style={styles.imageContainer}>
+                    <Image
+                        source={require('../../../../assets/default-user.png')}
+                        style={styles.profileImage}
+                    />
+                </View>
                 <Text style={[styles.label, { color: colors.secondaryText }]}>{t('nameLabel')}</Text>
                 <Text style={[styles.value, { color: colors.text }]}>{name}</Text>
 
@@ -31,6 +37,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+    },
+    imageContainer: {
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    profileImage: {
+        width: 120,
+        height: 120,
+        borderRadius: 60,
     },
     label: {
         fontSize: 16,

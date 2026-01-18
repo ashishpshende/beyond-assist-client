@@ -25,7 +25,7 @@ const CustomDrawerContent = (props: any) => {
         <DrawerContentScrollView {...props}>
             <TouchableOpacity style={[styles.profileContainer, { backgroundColor: colors.card, borderBottomColor: colors.border, borderBottomWidth: 1 }]} onPress={() => props.navigation.navigate('UserProfile')}>
                 <Image
-                    source={{ uri: 'https://via.placeholder.com/150' }}
+                    source={require('../../assets/default-user.png')}
                     style={styles.profileImage}
                 />
                 <Text style={[styles.profileName, { color: colors.text }]}>{name}</Text>
